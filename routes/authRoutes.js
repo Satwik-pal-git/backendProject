@@ -27,8 +27,6 @@ router.post('/logout', auth, logout);
 // Google authentication
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
-    console.log("chala");
-    console.log(req);
     req.session.authUser = req.user;
     req.session.token = req.sessionID;
     res.redirect('/profile');
