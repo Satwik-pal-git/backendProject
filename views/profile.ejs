@@ -69,21 +69,17 @@
                                 style="font-size: large; font-weight: 700;">
                                 My Details</p>
                             <% if (authUser.provider==='JWT' ) { %>
-                                <div class="d-flex flex-column align-items-center text-center">
-                                    <% if (authUser.photo && authUser.photo.data && authUser.photo.data.data) { %>
-                                        <img src="data:<%= authUser.photo.contentType %>;base64,<%= Buffer.from(authUser.photo.data.data).toString('base64') %>"
-                                            alt="User" class="rounded-circle" width="150" height="150">
-                                        <% } else { %>
-                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                                                alt="User" class="rounded-circle" width="150" height="150">
-                                            <% } %>
-                                </div>
-                                <% } else { %>
-                                    <div class="d-flex flex-column align-items-center text-center">
-                                        <img src="<%= authUser.photo ? authUser.photo : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>"
-                                            alt="User" class="rounded-circle" width="150" height="150">
-                                    </div>
-                                    <% } %>
+                                <% if (authUser.photo && authUser.photo.data && authUser.photo.data.data) { %>
+                                    <img src="data:<%= authUser.photo.contentType %>;base64,<%= Buffer.from(authUser.photo.data.data).toString('base64') %>"
+                                        alt="User" class="rounded-circle" width="150" height="150">
+                                    <% } else { %>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User"
+                                            class="rounded-circle" width="150" height="150">
+                                        <% } %>
+                                            <% } else { %>
+                                                <img src="<%= authUser.photo %>" alt="User" class="rounded-circle"
+                                                    width="150" height="150">
+                                                <% } %>
 
 
 
@@ -109,25 +105,27 @@
                                 <textarea class="form-control" name="bio"
                                     autocomplete="off"><%= authUser.bio %></textarea>
                             </div>
-                            <div class="m-3">
-                                <label class="form-label">Profile Photo</label>
-                                <input type="file" class="form-control" name="photo" accept=".png, .jpg, .jpeg">
-                            </div>
-                            <div class="m-3">
-                                <label class="form-check-label">Profile Visibility:</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="isPublic" id="public"
-                                        value="true" <%=authUser.isPublic ? 'checked' : '' %>>
-                                    <label class="form-check-label" for="public">Public</label>
+                            <% if (authUser.provider==='JWT' ) { %>
+                                <div class="m-3">
+                                    <label class="form-label">Profile Photo</label>
+                                    <input type="file" class="form-control" name="photo" accept=".png, .jpg, .jpeg">
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="isPublic" id="private"
-                                        value="false" <%=!authUser.isPublic ? 'checked' : '' %>>
-                                    <label class="form-check-label" for="private">Private</label>
-                                </div>
-                            </div>
-                            <button type="submit"
-                                class="btn3 btn-primary edit_button m-3 px-4 py-2">SaveChanges</button>
+                                <%}%>
+                                    <div class="m-3">
+                                        <label class="form-check-label">Profile Visibility:</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="isPublic" id="public"
+                                                value="true" <%=authUser.isPublic ? 'checked' : '' %>>
+                                            <label class="form-check-label" for="public">Public</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="isPublic" id="private"
+                                                value="false" <%=!authUser.isPublic ? 'checked' : '' %>>
+                                            <label class="form-check-label" for="private">Private</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                        class="btn3 btn-primary edit_button m-3 px-4 py-2">SaveChanges</button>
                         </form>
                     </div>
                 </div>

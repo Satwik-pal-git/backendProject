@@ -13,7 +13,6 @@ const ejs = require("ejs");
 const bodyParser = require('body-parser');
 require("./config/passport")(passport);
 
-
 dotenv.config();
 
 const app = express();
@@ -25,11 +24,11 @@ app.use(session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
     cookie: { maxAge: 180 * 60 * 1000 } // 3 hours
 }));
+
 app.use((req, res, next) => {
     res.locals.authUser = req.session.authUser;
     next();
 });
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Middleware
 app.use(express.json());
@@ -45,11 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
-app.use(session({
-    secret: 'keyboard_satwik_backend', // Change this to a secret key for session encryption
-    resave: false,
-    saveUninitialized: false
-}));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

@@ -65,20 +65,32 @@
                         <div class="card user_area p-5">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="<%= user.photo ? '/' + user.photo : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>"
-                                        alt="User" class="rounded-circle" width="150" height="150">
-                                    <h4>
-                                        <%= user.name %>
-                                    </h4>
-                                    <p class="text-secondary mb-1">
-                                        <%= user.bio %>
-                                    </p>
-                                    <p class="text-muted font-size-sm">
-                                        <%= user.phone %>
-                                    </p>
-                                    <p class="text-muted font-size-sm">
-                                        <%= user.isPublic ? 'Public' : 'Private' %>
-                                    </p>
+                                    <% if (user.provider==='JWT' ) { %>
+                                        <% if (user.photo && user.photo.data) { %>
+                                            <img src="data:<%= user.photo.contentType %>;base64,<%= Buffer.from(user.photo.data).toString('base64') %>"
+                                                alt="User" class="rounded-circle" width="150" height="150">
+                                            <% } else { %>
+                                                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                                                    alt="User" class="rounded-circle" width="150" height="150">
+                                                <% } %>
+                                                    <% } else { %>
+                                                        <div class="d-flex flex-column align-items-center text-center">
+                                                            <img src="<%= user.photo  %>" alt="User"
+                                                                class="rounded-circle" width="150" height="150">
+                                                        </div>
+                                                        <% } %>
+                                                            <h4>
+                                                                <%= user.name %>
+                                                            </h4>
+                                                            <p class="text-secondary mb-1">
+                                                                <%= user.bio %>
+                                                            </p>
+                                                            <p class="text-muted font-size-sm">
+                                                                <%= user.phone %>
+                                                            </p>
+                                                            <p class="text-muted font-size-sm">
+                                                                <%= user.isPublic ? 'Public' : 'Private' %>
+                                                            </p>
                                 </div>
                             </div>
                         </div>

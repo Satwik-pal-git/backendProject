@@ -6,10 +6,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     photo: String,
     provider: { type: String, default: "Google" },
-    photo: {
-        data: Buffer,
-        contentType: String
-    },
+    photo: { type: String },
     bio: { type: String },
     phone: { type: String },
     isAdmin: { type: Boolean, default: false },

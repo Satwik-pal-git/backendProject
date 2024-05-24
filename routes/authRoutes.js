@@ -23,7 +23,6 @@ router.post('/login', loginValidation, login);
 router.post('/logout', auth, logout);
 
 
-
 // Google authentication
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {

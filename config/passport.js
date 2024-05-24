@@ -3,7 +3,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/authModel');
 const dotenv = require("dotenv").config();
 
-
 module.exports = function (passport) {
     passport.use(
         new GoogleStrategy(
