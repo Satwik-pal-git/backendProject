@@ -36,8 +36,10 @@ exports.updateProfile = async (req, res) => {
         if (isPublic !== undefined) user.isPublic = isPublic;
 
         if (req.file) {
-            const filePath = req.file.path.replace(/\\/g, '/');
-            user.photo = filePath;
+            user.photo = {
+                data: req.file.buffer,
+                contentType: req.file.mimetype
+            }
         }
 
         await user.save();

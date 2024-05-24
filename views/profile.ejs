@@ -70,15 +70,22 @@
                                 My Details</p>
                             <% if (authUser.provider==='JWT' ) { %>
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="<%= authUser.photo ? '/' + authUser.photo : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>"
-                                        alt="User" class="rounded-circle" width="150" height="150">
+                                    <% if (authUser.photo && authUser.photo.data && authUser.photo.data.data) { %>
+                                        <img src="data:<%= authUser.photo.contentType %>;base64,<%= Buffer.from(authUser.photo.data.data).toString('base64') %>"
+                                            alt="User" class="rounded-circle" width="150" height="150">
+                                        <% } else { %>
+                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                                                alt="User" class="rounded-circle" width="150" height="150">
+                                            <% } %>
                                 </div>
                                 <% } else { %>
                                     <div class="d-flex flex-column align-items-center text-center">
-                                        <img src="<%= authUser.photo  %>" alt="User" class="rounded-circle" width="150"
-                                            height="150">
+                                        <img src="<%= authUser.photo ? authUser.photo : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>"
+                                            alt="User" class="rounded-circle" width="150" height="150">
                                     </div>
                                     <% } %>
+
+
 
                         </div>
                     </div>
